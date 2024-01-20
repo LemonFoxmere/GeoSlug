@@ -1,7 +1,7 @@
 @import "guideline";
 
 html {
-  background-color: $black;
+  background-color: $map-grey;
 }
 
 body, html {
@@ -9,7 +9,7 @@ body, html {
   padding: 0; // remove margin stuff
   box-sizing: border-box;
 
-  background-color: $black;
+  background-color: $map-grey;
   width: 100vw;
   height: fit-content;
 }

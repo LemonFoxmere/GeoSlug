@@ -8,8 +8,8 @@
 		const map = new mapboxgl.Map({
 			container: "map",
 			style: "mapbox://styles/mapbox/dark-v11",
-			center: [16.37, 48.2],
-			zoom: 12
+			center: [-122.05716, 37.0001],
+			zoom: 16
 		});
 	});
 </script>
@@ -20,6 +20,7 @@
 </svelte:head>
 
 <main>
+	<div id="map-gradient" />
 	<div id="map" />
 </main>
 
@@ -35,10 +36,23 @@
 		justify-content: center;
 		align-items: center;
 
+		#map-gradient {
+			background-image: linear-gradient(180deg, $map-grey 0%, hsla(0, 0%, 13%, 0) 100%);
+			position: absolute;
+			width: 100%;
+			height: 50px;
+			top: 0px;
+
+			pointer-events: none;
+
+			z-index: 1;
+		}
+
 		#map {
 			position: fixed;
 			width: 100%;
 			height: 100%;
+			z-index: 0;
 		}
 	}
 </style>
