@@ -1,0 +1,179 @@
+@media screen and (min-width: 621px) {
+  .only-phone {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 621px) {
+  .exclude-phone {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .exclude-desktop {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .only-desktop {
+    display: none !important;
+  }
+}
+
+.card-frame {
+  background: hsl(96deg, 12%, 92%);
+  border: 1.5px solid hsl(0deg, 0%, 66%);
+}
+
+.pfp {
+  box-shadow: 0 5px 33px 0 hsla(0deg, 0%, 0%, 0.38);
+}
+
+.glass-heavy, .glass-light {
+  background-color: hsla(96deg, 12%, 92%, 0.8);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+}
+
+.glass-light {
+  background-color: hsla(96deg, 12%, 92%, 0.4);
+}
+
+button {
+  font-family: "Figtree", system-ui, Helvetica, sans-serif;
+  border: 2px solid hsl(0deg, 0%, 0%);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  color: hsl(0deg, 0%, 24%);
+  background: none;
+  letter-spacing: -0.44px;
+  padding: 6px 16px;
+  margin: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+@media (hover: hover) {
+  button:hover {
+    border-color: hsl(0deg, 0%, 53%);
+    color: hsl(0deg, 0%, 53%);
+  }
+}
+button:active {
+  border-color: hsl(0deg, 0%, 53%);
+  color: hsl(0deg, 0%, 53%);
+}
+button.text {
+  border: none;
+  background: none;
+  padding: 0;
+  font-weight: 300;
+  color: hsl(0deg, 0%, 24%);
+}
+button.text.small {
+  font-size: 12px;
+}
+@media (hover: hover) {
+  button.text:hover {
+    color: hsl(0deg, 0%, 53%);
+  }
+}
+button.text:active {
+  color: hsl(0deg, 0%, 53%);
+}
+button.text.underlined {
+  text-decoration: underline;
+}
+button.solid {
+  background-color: hsl(0deg, 0%, 0%);
+  font-weight: 400;
+  letter-spacing: 0.12px;
+  color: hsl(96deg, 12%, 92%);
+}
+@media (hover: hover) {
+  button.solid:hover {
+    background-color: hsl(0deg, 0%, 24%);
+    border-color: hsl(0deg, 0%, 24%);
+  }
+}
+button.solid:active {
+  background-color: hsl(0deg, 0%, 24%);
+  border-color: hsl(0deg, 0%, 24%);
+}
+@media screen and (max-width: 621px) {
+  button.solid {
+    font-weight: 500;
+  }
+}
+button.large {
+  padding: 10px 24px;
+}
+
+input {
+  height: 36px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  transition: none;
+  border: 2px solid hsl(0deg, 0%, 0%);
+  border-radius: 8px;
+  background: none;
+  font-family: "Figtree", system-ui, Helvetica, sans-serif;
+  font-size: 14px;
+}
+input::placeholder {
+  color: hsl(0deg, 0%, 66%);
+  transition: opacity 300ms ease-in;
+}
+input.large {
+  height: 46px;
+  padding: 0px 14px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+input.hide-placeholder:active::placeholder, input.hide-placeholder:focus::placeholder {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+a.plain {
+  text-decoration: none;
+  color: hsl(0deg, 0%, 24%);
+}
+a.plain:hover {
+  color: hsl(0deg, 0%, 53%);
+}
+
+html {
+  background-color: hsl(96deg, 12%, 92%);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: hsl(96deg, 12%, 92%);
+  width: 100vw;
+  height: fit-content;
+}
+
+.no-drag, a, hr {
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22guideline.scss%22,%22global.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAgDI;EADJ;IAEQ;;;;AAKJ;EADJ;IAEQ;;;;AAKJ;EADJ;IAEQ;;;;AAKJ;EADJ;IAEQ;;;;AAKR;EACI,YAvEI;EAwEJ;;;AAGJ;EACI;;;AAGJ;EACI;EAEA;EACA;;;AAGJ;EAGI;;;AAGJ;EACI;EAEA;EACA;EACA;EACA;EACA,OAjGM;EAkGN;EACA;EAEA;EACA;EACA;EACA;EAEA;EAEA;EACA;EACA;EACA;EACA;;AAEA;EACI;IACI,cAlHD;IAmHC,OAnHD;;;AAuHP;EACI,cAxHG;EAyHH,OAzHG;;AA4HP;EACI;EACA;EACA;EAEA;EACA,OApIE;;AAsIF;EACI;;AAGJ;EACI;IACI,OA1IL;;;AA8IH;EACI,OA/ID;;AAkJH;EACI;;AAIR;EACI,kBA7JA;EA+JA;EACA;EACA,OAhKA;;AAkKA;EACI;IACI,kBAlKN;IAmKM,cAnKN;;;AAuKF;EACI,kBAxKF;EAyKE,cAzKF;;AA4KF;EAnBJ;IAoBQ;;;AAIR;EACI;;;AAIR;EACI;EACA;EACA;EACA;EAEA;EACA;EACA;EAEA;EACA;;AAEA;EACI,OAjMK;EAkML;;AAGJ;EACI;EACA;EAEA;EAEA;;AAKI;EACI;EACA;;;AAMhB;EAEI;EACA;;AAEA;EACI;EACA,OAlOE;;AAoOF;EACI,OAnOD;;;ACJX;EACE,kBDDM;;;ACIR;EACE;EACA;EACA;EAEA,kBDTM;ECUN;EACA;;;AAGF;EACE;EACA;EACA;EACA;EACA%22,%22file%22:%22global.css%22%7D */

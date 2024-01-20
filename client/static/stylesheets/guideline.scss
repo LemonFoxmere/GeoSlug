@@ -1,0 +1,285 @@
+// COLORS
+$black: hsl(0, 0%, 0%);
+$white: hsl(96, 12%, 92%);
+
+$primary: hsl(0, 0%, 24%);
+$secondary: hsl(0, 0%, 31%);
+$tertiary: hsl(0, 0%, 53%);
+$quaternary: hsl(0, 0%, 66%);
+$pentinary: hsl(0, 0%, 79%);
+$solid-white: hsl(0, 0%, 100%);
+
+$green: hsl(112, 59%, 42%);
+$red: hsl(356, 80%, 51%);
+$yellow: hsl(40, 82%, 55%);
+$blue: hsl(214, 72%, 52%);
+
+// TRANSITION CURVES
+$in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1.0075);
+$out-quart: cubic-bezier(0.165, 0.84, 0.44, 1.0075);
+$out-quint: cubic-bezier(0.23, 1, 0.32, 1.002);
+$out-expo: cubic-bezier(0.19, 1, 0.22, 1.003);
+$out-circ: cubic-bezier(0.075, 0.82, 0.165, 1.0015);
+$out-generic: cubic-bezier(0.3, -0.01, 0.4, 1.004);
+$out-generic-expo: cubic-bezier(0.3, 1, 0.22, 1.003);
+$in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+$in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+$in-out-expo: cubic-bezier(1, 0, 0, 1);
+$in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+// SIZING
+$urlbar-height: 160px;
+$mobile-navbar-height: 70px;
+$navbar-height: 60px;
+
+$mobile-width: 621px;
+$tablet-width: 1000px;
+
+// RESPONSIVE DESIGN
+.only-phone {
+    @media screen and (min-width: $mobile-width) {
+        display: none !important;
+    }
+}
+
+.exclude-phone {
+    @media screen and (max-width: $mobile-width) {
+        display: none !important;
+    }
+}
+
+.exclude-desktop {
+    @media screen and (min-width: $tablet-width) {
+        display: none !important;
+    }
+}
+
+.only-desktop {
+    @media screen and (max-width: $tablet-width) {
+        display: none !important;
+    }
+}
+
+// ELEMENT STYLES
+.card-frame {
+    background: $white;
+    border: 1.5px solid $quaternary;
+}
+
+.pfp {
+    box-shadow: 0 5px 33px 0 hsla(0, 0%, 0%, 38%);
+}
+
+.glass-heavy {
+    background-color: hsla(96, 12%, 92%, 80%);
+
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+}
+
+.glass-light {
+    @extend .glass-heavy;
+
+    background-color: hsla(96, 12%, 92%, 40%);
+}
+
+.navbar-container {
+    @extend .glass-heavy;
+
+    width: 100%;
+    min-height: $navbar-height;
+    height: $navbar-height;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.navbar-content{
+    width: calc(100vw - 300px);
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.mobile-menu{
+    @extend .glass-light;
+
+    width: 100%;
+    max-width: 100vw;
+    height: calc(100% - $navbar-height);
+    position: fixed;
+    top: $navbar-height;
+    z-index: 100;
+}
+.mobile-menu-background{
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+    padding: 0 20px 8px 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    background-color: $white;
+    box-shadow: 0 20px 70px 0 hsla(0, 0%, 0%, 20%);
+    border-radius: 0 0 22px 22px;
+}
+
+button {
+    font-family: "Figtree", system-ui, Helvetica, sans-serif;
+
+    border: 2px solid $black;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: $primary;
+    background: none;
+    letter-spacing: -0.44px;
+
+    padding: 6px 16px;
+    margin: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+
+    @media(hover: hover) {
+        &:hover {
+            border-color: $tertiary;
+            color: $tertiary;
+        }
+    }
+
+    &:active {
+        border-color: $tertiary;
+        color: $tertiary;
+    }
+
+    &.text {
+        border: none;
+        background: none;
+        padding: 0;
+
+        font-weight: 300;
+        color: $primary;
+
+        &.small {
+            font-size: 12px;
+        }
+
+        @media(hover: hover) {
+            &:hover {
+                color: $tertiary;
+            }
+        };
+
+        &:active {
+            color: $tertiary;
+        }
+
+        &.underlined {
+            text-decoration: underline;
+        }
+    }
+
+    &.solid {
+        background-color: $black;
+
+        font-weight: 400;
+        letter-spacing: 0.12px;
+        color: $white;
+
+        @media(hover: hover) {
+            &:hover {
+                background-color: $primary;
+                border-color: $primary;
+            }
+        };
+
+        &:active {
+            background-color: $primary;
+            border-color: $primary;
+        }
+
+        @media screen and (max-width: $mobile-width) {
+            font-weight: 500;
+        }
+    }
+
+    &.large {
+        padding: 10px 24px;
+    }
+}
+
+input {
+    height: 36px;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    transition: none;
+
+    border: 2px solid $black;
+    border-radius: 8px;
+    background: none;
+
+    font-family: "Figtree", system-ui, Helvetica, sans-serif;
+    font-size: 14px;
+
+    &::placeholder {
+        color: $quaternary;
+        transition: opacity 300ms ease-in;
+    }
+
+    &.large {
+        height: 46px;
+        padding: 0px 14px;
+
+        border-radius: 10px;
+
+        font-size: 16px;
+    }
+
+    &.hide-placeholder {
+        &:active, &:focus {
+            &::placeholder {
+                opacity: 0;
+                transition: opacity 200ms ease-out;
+            }
+        }
+    }
+}
+
+a {
+    @extend .no-drag !optional;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+
+    &.plain {
+        text-decoration: none;
+        color: $primary;
+
+        &:hover {
+            color: $tertiary;
+        }
+    }
+}
+
+hr {
+    @extend .no-drag !optional;
+}

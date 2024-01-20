@@ -1,0 +1,80 @@
+@import "./guideline.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+h1,h2,h3,h4,h5,h6,p,a, pre { /* all text */
+    --font-offset: 0px;
+    width: fit-content;
+    margin:0;
+}
+
+h1,h2,h3,h4,h5,h6{ /* for all titles */
+    font-family: "Figtree", system-ui, Helvetica, sans-serif;
+    line-height: 110%;
+    letter-spacing: -0.83px;
+    color: $black;
+}
+
+h1{
+    font-size: calc(36px + var(--font-offset));
+    font-weight: 700;
+}
+h2{
+    font-size: calc(32px + var(--font-offset));
+    font-weight: 600;
+}
+h3{
+    font-size: calc(28px + var(--font-offset));
+    font-weight: 600;
+}
+h4{
+    font-size: calc(24px + var(--font-offset));
+    letter-spacing: -0.54px;
+    font-weight: 600;
+}
+h5{
+    font-size: calc(20px + var(--font-offset));
+    letter-spacing: -0.54px;
+    font-weight: 500;
+}
+h6{
+    font-size: calc(16px + var(--font-offset));
+    letter-spacing: -0.43px;
+    font-weight: 400;
+    color: $secondary;
+}
+
+p, a, ol, ul, li, pre{
+    font-family: system-ui, "Inter", Helvetica, sans-serif;
+    font-size: calc(14px + var(--font-offset));
+    font-weight: 300;
+    letter-spacing: -0.07px;
+}
+p, pre{
+    color: $primary;
+    font-weight: 400;
+}
+a{
+    color: $blue;
+    font-weight: 400;
+}
+ol, ul, li{
+    font-weight: 500;
+}
+
+.monospace{
+    font-family: "Ubuntu Mono", monospace;
+    font-size: calc(14px + var(--font-offset));
+    letter-spacing: -0.5px;
+    height: calc(12px + var(--font-offset));
+    display:flex; justify-content: center; align-items: center;
+    font-weight: 600;
+}
+
+.serif{
+    font-family: "Times New Roman", Times, serif;
+    font-size: calc(12px + var(--font-offset));
+    font-weight: 300;
+    letter-spacing: -0.09px;
+}
