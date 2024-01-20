@@ -1,18 +1,18 @@
 // COLORS
-$black: hsl(0, 0%, 0%);
-$white: hsl(96, 12%, 92%);
+$black: hsl(240, 4%, 9%);
+$white: hsl(0, 0%, 100%);
 
-$primary: hsl(0, 0%, 24%);
-$secondary: hsl(0, 0%, 31%);
-$tertiary: hsl(0, 0%, 53%);
-$quaternary: hsl(0, 0%, 66%);
-$pentinary: hsl(0, 0%, 79%);
-$solid-white: hsl(0, 0%, 100%);
+$dark-grey: hsl(0, 0%, 18%);
+$grey: hsl(0, 0%, 51%);
+$light-grey: hsl(0, 0%, 93%);
 
-$green: hsl(112, 59%, 42%);
-$red: hsl(356, 80%, 51%);
-$yellow: hsl(40, 82%, 55%);
-$blue: hsl(214, 72%, 52%);
+$blue: hsl(226, 64%, 58%);
+
+$map-grey: hsl(0, 0%, 13%);
+$map-blue: hsl(238, 83%, 63%);
+$map-red: hsl(0, 89%, 61%);
+$map-green: hsl(101, 83%, 63%);
+$map-yellow: hsl(43, 83%, 63%);
 
 // TRANSITION CURVES
 $in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
@@ -70,17 +70,8 @@ $tablet-width: 1000px;
 }
 
 // ELEMENT STYLES
-.card-frame {
-    background: $white;
-    border: 1.5px solid $quaternary;
-}
-
-.pfp {
-    box-shadow: 0 5px 33px 0 hsla(0, 0%, 0%, 38%);
-}
-
 .glass-heavy {
-    background-color: hsla(96, 12%, 92%, 80%);
+    // background-color: hsla(96, 12%, 92%, 80%);
 
     backdrop-filter: blur(40px) saturate(200%);
     -webkit-backdrop-filter: blur(40px) saturate(200%);
@@ -89,61 +80,18 @@ $tablet-width: 1000px;
 .glass-light {
     @extend .glass-heavy;
 
-    background-color: hsla(96, 12%, 92%, 40%);
-}
-
-.navbar-container {
-    @extend .glass-heavy;
-
-    width: 100%;
-    min-height: $navbar-height;
-    height: $navbar-height;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-.navbar-content{
-    width: calc(100vw - 300px);
-    height: 36px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-.mobile-menu{
-    @extend .glass-light;
-
-    width: 100%;
-    max-width: 100vw;
-    height: calc(100% - $navbar-height);
-    position: fixed;
-    top: $navbar-height;
-    z-index: 100;
-}
-.mobile-menu-background{
-    width: 100%;
-    height: fit-content;
-    box-sizing: border-box;
-    padding: 0 20px 8px 20px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    background-color: $white;
-    box-shadow: 0 20px 70px 0 hsla(0, 0%, 0%, 20%);
-    border-radius: 0 0 22px 22px;
+    // background-color: hsla(96, 12%, 92%, 40%);
 }
 
 button {
     font-family: "Figtree", system-ui, Helvetica, sans-serif;
 
-    border: 2px solid $black;
+    border: none;
+    background-color: $black;
     border-radius: 10px;
     font-size: 16px;
     font-weight: 400;
-    color: $primary;
+    color: $white;
     background: none;
     letter-spacing: -0.44px;
 
@@ -159,73 +107,6 @@ button {
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-
-    @media(hover: hover) {
-        &:hover {
-            border-color: $tertiary;
-            color: $tertiary;
-        }
-    }
-
-    &:active {
-        border-color: $tertiary;
-        color: $tertiary;
-    }
-
-    &.text {
-        border: none;
-        background: none;
-        padding: 0;
-
-        font-weight: 300;
-        color: $primary;
-
-        &.small {
-            font-size: 12px;
-        }
-
-        @media(hover: hover) {
-            &:hover {
-                color: $tertiary;
-            }
-        };
-
-        &:active {
-            color: $tertiary;
-        }
-
-        &.underlined {
-            text-decoration: underline;
-        }
-    }
-
-    &.solid {
-        background-color: $black;
-
-        font-weight: 400;
-        letter-spacing: 0.12px;
-        color: $white;
-
-        @media(hover: hover) {
-            &:hover {
-                background-color: $primary;
-                border-color: $primary;
-            }
-        };
-
-        &:active {
-            background-color: $primary;
-            border-color: $primary;
-        }
-
-        @media screen and (max-width: $mobile-width) {
-            font-weight: 500;
-        }
-    }
-
-    &.large {
-        padding: 10px 24px;
-    }
 }
 
 input {
@@ -242,7 +123,7 @@ input {
     font-size: 14px;
 
     &::placeholder {
-        color: $quaternary;
+        color: $grey;
         transition: opacity 300ms ease-in;
     }
 
@@ -269,15 +150,6 @@ a {
     @extend .no-drag !optional;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-
-    &.plain {
-        text-decoration: none;
-        color: $primary;
-
-        &:hover {
-            color: $tertiary;
-        }
-    }
 }
 
 hr {
