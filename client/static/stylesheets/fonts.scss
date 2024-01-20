@@ -13,7 +13,7 @@ h1,h2,h3,h4,h5,h6{ /* for all titles */
     font-family: "Figtree", system-ui, Helvetica, sans-serif;
     line-height: 110%;
     letter-spacing: -0.83px;
-    color: $black;
+    color: $white;
 }
 
 h1{
@@ -42,7 +42,7 @@ h6{
     font-size: calc(16px + var(--font-offset));
     letter-spacing: -0.43px;
     font-weight: 400;
-    color: $secondary;
+    color: $grey;
 }
 
 p, a, ol, ul, li, pre{
@@ -52,7 +52,7 @@ p, a, ol, ul, li, pre{
     letter-spacing: -0.07px;
 }
 p, pre{
-    color: $primary;
+    color: $white;
     font-weight: 400;
 }
 a{
