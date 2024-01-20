@@ -37,7 +37,7 @@ $in-out-expo: cubic-bezier(1, 0, 0, 1);
 $in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 
 // SIZING
-$urlbar-height: 160px;
+$urlbar-height: 85px;
 $mobile-navbar-height: 70px;
 $navbar-height: 60px;
 
@@ -84,7 +84,7 @@ $tablet-width: 1000px;
 }
 
 button {
-    font-family: "Figtree", system-ui, Helvetica, sans-serif;
+    font-family: "Outfit", system-ui, Helvetica, sans-serif;
 
     border: none;
     background-color: $black;
@@ -119,7 +119,7 @@ input {
     border-radius: 8px;
     background: none;
 
-    font-family: "Figtree", system-ui, Helvetica, sans-serif;
+    font-family: "Outfit", system-ui, Helvetica, sans-serif;
     font-size: 14px;
 
     &::placeholder {
