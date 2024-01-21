@@ -11,6 +11,7 @@ $blue: hsl(226, 88%, 58%);
 $map-grey: hsl(0, 0%, 13%);
 $map-blue: hsl(238, 83%, 63%);
 $map-red: hsl(0, 89%, 61%);
+$map-orange: hsl(20, 90%, 59%);
 $map-green: hsl(101, 83%, 63%);
 $map-yellow: hsl(43, 83%, 63%);
 
@@ -83,10 +84,10 @@ $tablet-width: 1000px;
     // background-color: hsla(96, 12%, 92%, 40%);
 }
 
-#map{
+#map-container{
     .marker {
-        width: 50px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
     
         border-radius: 50%;
         z-index: 1;
@@ -99,44 +100,116 @@ $tablet-width: 1000px;
         outline: 5px solid transparent;
         background-color: transparent;
     
-        // Apply the fade-in animation
-        animation: fadeIn 1500ms $out-generic forwards;
+        &.diff0{
+            // Apply the fade-in animation
+            animation: fadeIn 1500ms $out-generic;
+        }
+        &.diff1{
+            opacity: 1 !important;
+        }
+        &.diff2{
+            opacity: 0.9 !important;
+        }
+        &.diff3{
+            opacity: 0.8 !important;
+        }
+        &.diff4{
+            opacity: 0.6 !important;
+        }
+        &.diff5{
+            opacity: 0.45 !important;
+        }
+        &.diff6{
+            opacity: 0.3 !important;
+        }
+        &.diff7{
+            opacity: 0.2 !important;
+        }
     
         &.red {
-            background-image: radial-gradient(circle at 50% 50%, $map-red 30%, transparent 100%);
+            background-color: $map-red;
         }
         &.blue {
-            background-image: radial-gradient(circle at 50% 50%, $map-blue 30%, transparent 100%);
+            background-color: $map-blue;
+        }
+        &.green {
+            background-color: $map-green;
+        }
+        &.yellow {
+            background-color: $map-yellow;
+        }
+        &.orange {
+            background-color: $map-orange;
+        }
+
+        &:active{
+            opacity: 0.4 !important;
+        }
+    }
+
+    &.no-slug{
+        .marker{
+            &.yellow {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-deer{
+        .marker{
+            &.red {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-tkey{
+        .marker{
+            &.blue {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-coyo{
+        .marker{
+            &.orange {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-racc{
+        .marker{
+            &.green {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
         }
     }
     
     &.point{
         .marker{
             filter: blur(0px);
-            outline: 5px solid $black;
-            outline-offset: -8px;
-
-            &.red {
-                background-color: $map-red;
-            }
-            &.blue {
-                background-color: $map-blue;
-            }
+            outline: 3px solid $black;
+            outline-offset: -6px;
         }
     }
 }
 
 @keyframes fadeIn {
     from {
-        opacity: 0;
+        filter: opacity(0) blur(15px);
     }
     to {
-        opacity: 1;
+        filter: opacity(1) blur(15px);
     }
 }
 
 button {
     font-family: "Outfit", system-ui, Helvetica, sans-serif;
+
+    touch-action: manipulation;
 
     border: none;
     background-color: $black;

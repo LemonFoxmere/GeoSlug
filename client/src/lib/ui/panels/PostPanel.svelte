@@ -1,15 +1,6 @@
-<script lang="ts" context="module">
-	export interface FilterConfiguration {
-		pointFog: boolean;
-		slug: boolean;
-		deer: boolean;
-		tkey: boolean;
-		coyo: boolean;
-		racc: boolean;
-	}
-</script>
-
 <script lang="ts">
+	import type { PostData } from "$route/+page.server";
+	import { speciesColor, speciesName } from "$route/+page.svelte";
 	import { createEventDispatcher, onMount } from "svelte";
 	const disp = createEventDispatcher();
 	const submitDisp = createEventDispatcher<{
@@ -17,7 +8,8 @@
 	}>();
 
 	export let open: boolean;
-	export let imgUrl: string;
+
+	export let postData: PostData | undefined;
 
 	let panelParent: HTMLElement;
 	let initDragPosition: [number, number] = [0, 0];
@@ -49,7 +41,7 @@
 			}
 		};
 		panelParent.ontouchend = () => {
-			dragging = sliderDragging = false;
+			dragging = false;
 			let diff = calcDistance(0, currentDragPosition[1] - initDragPosition[1]);
 			dragTime[1] = performance.now();
 			let dur = dragTime[1] - dragTime[0];
@@ -61,155 +53,77 @@
 		};
 	};
 
-	// dropdown
-	let dropdownElement: HTMLSelectElement;
-
-	// slider
-	let maxCount = 10;
-	let currentCount = 2;
-	let previousCount = currentCount;
-
-	let sliderContainer: HTMLDivElement;
-	let sliderDragging = false;
-
-	const setupSliderDragging = () => {
-		sliderContainer.ontouchstart = (e) => {
-			e.stopPropagation();
-
-			initDragPosition = [e.touches[0].clientX, e.touches[0].clientY];
-			dragging = sliderDragging = false;
-		};
-		sliderContainer.ontouchmove = (e) => {
-			e.preventDefault();
-			e.stopPropagation();
-
-			currentDragPosition = [e.touches[0].clientX, e.touches[0].clientY];
-			let delta: number = calcDistance(0, e.touches[0].clientX - initDragPosition[0]);
-			let signedDelta: number = e.touches[0].clientX - initDragPosition[0];
-
-			if (!dragging && delta > 10) {
-				// exceed drag threshold
-				dragging = sliderDragging = true;
-				// reset initial drag position
-				initDragPosition = [e.touches[0].clientX, e.touches[0].clientY];
-				previousCount = currentCount;
-			}
-
-			if (dragging) {
-				currentCount = Math.max(
-					1,
-					Math.min(maxCount, previousCount + Math.floor(signedDelta / 30))
-				);
-			}
-		};
-		sliderContainer.ontouchend = (e) => {
-			dragging = sliderDragging = false;
-
-			previousCount = currentCount;
-		};
+	// post rating
+	const thumbsUp = () => {
+		currentPostRating = "1";
+		if (postData) localStorage.setItem(postData.id, "1");
+	};
+	const thumbsDown = () => {
+		currentPostRating = "-1";
+		if (postData) localStorage.setItem(postData.id, "-1");
 	};
 
-	const onSubmit = () => {
-		// get lng and lat from user's device
-		let lng = 0;
-		let lat = 0;
-
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(
-				(position) => {
-					lng = position.coords.longitude;
-					lat = position.coords.latitude;
-					submitDisp("submit", {
-						animal: dropdownElement.value,
-						count: currentCount,
-						lng: lng,
-						lat: lat
-					});
-
-					// animate the card flying out
-					panelParent.style.pointerEvents = "none";
-					panelParent.style.transform = "translateY(-800px) scale(0.1, 1.5)";
-					panelParent.style.transition = "transform 400ms cubic-bezier(0.55, 0, 0.675, 0.19)";
-
-					setTimeout(() => {
-						panelParent.style.transition = "none";
-
-						setTimeout(() => {
-							panelParent.style.transform = "";
-							panelParent.style.pointerEvents = "";
-						}, 0);
-					}, 500);
-				},
-				() => {
-					alert("Please enable geolocation service in your browser to submit a photo.");
-				},
-				{
-					enableHighAccuracy: true,
-					timeout: 5000,
-					maximumAge: 0
-				}
-			);
-		} else {
-			alert("Your browser does not support geolocation. Cannot submit photo.");
-		}
-	};
+	$: currentPostRating = postData ? localStorage.getItem(postData.id) : "";
 
 	onMount(() => {
 		setupPanelDragging();
-		setupSliderDragging();
 	});
 </script>
 
 <main
 	bind:this={panelParent}
 	class={open ? "no-drag" : "no-drag hidden"}
-	style={dragging && !sliderDragging
+	style={dragging
 		? `transform: translateY(${Math.max(0, currentDragPosition[1] - initDragPosition[1])}px); transition: none;`
 		: ""}
 >
 	<hr />
+	<h1>Spotted Animals</h1>
 
-	{#if imgUrl}
-		<img id="main-photo" src={imgUrl} alt="" />
-	{:else}
-		<div id="main-photo-placeholder"></div>
+	{#if postData}
+		<section class="post">
+			<section id="content">
+				<img src={postData.image_url} alt="animal" />
+
+				<section id="desc">
+					<h2 id="name">{postData.name}</h2>
+					<p id="animal">
+						Spotted <span class={speciesColor[postData.type]}
+							>{postData.count} {speciesName[postData.type][Math.min(postData.count - 1, 1)]}</span
+						>
+					</p>
+					<p id="date">
+						<span
+							>{Math.ceil(Math.abs(Date.now() / 1000 - postData.timestamp) / (60 * 60 * 24))}</span
+						> days ago
+					</p>
+				</section>
+			</section>
+			<section id="rating">
+				<h2 id="title">Is this submission accurate?</h2>
+
+				<div id="button-container">
+					<button id="yes" class={currentPostRating === "1" ? "active" : ""} on:click={thumbsUp}
+						><img src="/icons/thumbsup.svg" alt="" /></button
+					>
+					<button id="no" class={currentPostRating === "-1" ? "active" : ""} on:click={thumbsDown}
+						><img src="/icons/thumbsdown.svg" alt="" /></button
+					>
+				</div>
+			</section>
+		</section>
 	{/if}
-
-	<section id="options">
-		<section id="animal">
-			<h2>Animal</h2>
-
-			<select bind:this={dropdownElement} name="animals">
-				<option value="slug">Banana Slug</option>
-				<option value="deer">Deer</option>
-				<option value="tkey">Turkey</option>
-				<option value="coyo">Coyote</option>
-				<option value="racc">Raccoon</option>
-			</select>
-		</section>
-
-		<section id="count">
-			<h2>Count</h2>
-
-			<div bind:this={sliderContainer} id="slider-container">
-				<div id="background" style="transform: scaleX({currentCount / maxCount})" />
-				<p>{currentCount}</p>
-			</div>
-		</section>
-	</section>
-
-	<button id="submit" on:click={onSubmit}>Submit Photo</button>
 </main>
 
 <style lang="scss">
 	@import "$static/stylesheets/guideline";
 
 	main {
-		$panel-height: 600px;
+		$panel-height: 305px;
 
 		width: calc(100% - 40px);
 		height: $panel-height;
-		padding: 0px 0px 20px 0px;
+		padding: 14px 18px;
 		box-sizing: border-box;
 		border-radius: 14px;
 
@@ -228,138 +142,149 @@
 
 		transition: transform 700ms $out-generic-expo;
 
-		#main-photo-placeholder {
+		.post {
 			width: 100%;
-			height: auto;
-			aspect-ratio: 1/1.15;
-		}
-
-		#main-photo {
-			width: 100%;
-			height: auto;
-			aspect-ratio: 1/1.15;
-
-			object-fit: cover;
-		}
-
-		#submit {
-			width: calc(100% - 36px);
-			height: 50px;
 			margin-top: 20px;
-			background-color: $blue;
-			text-align: center;
-		}
-
-		#options {
-			width: 100%;
-			margin-top: 25px;
-
 			display: flex;
+			flex-direction: column;
 
-			h2 {
-				font-weight: 500;
-				font-size: 18px;
-				color: $grey;
-				letter-spacing: -0.45px;
-			}
-
-			#count {
-				width: 100%;
-				margin: 0px 18px 0px 13px;
-				box-sizing: border-box;
-
+			#content {
 				display: flex;
-				flex-direction: column;
 
-				#slider-container {
-					position: relative;
-					width: 100%;
-					height: 50px;
+				img {
+					min-width: 130px;
+					width: 130px;
+					min-height: 130px;
+					height: 130px;
 
-					margin-top: 10px;
-					overflow: hidden;
-
-					border: 1px solid $dark-grey;
 					border-radius: 8px;
+					object-fit: cover;
+				}
 
-					transition: transform 700ms $out-generic-expo;
+				#desc {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: flex-start;
+					margin-left: 17px;
 
-					&:active {
-						transform: scale(1.1);
+					h2 {
+						font-weight: 600;
+						font-size: 24px;
+						color: $light-grey;
+						letter-spacing: -0.6px;
 					}
-
-					#background {
-						position: absolute;
-						width: 100%;
-						height: 100%;
-
-						transition: transform 700ms $out-generic-expo;
-
-						background-color: $blue;
-						transform-origin: left;
+					#animal,
+					#date {
+						font-weight: 400;
+						font-size: 16px;
+						color: $grey;
+						letter-spacing: -0.2px;
 					}
+					#animal {
+						margin-top: 7px;
 
-					p {
-						position: absolute;
-						top: 0;
-						left: 0;
+						span {
+							&.red {
+								color: $map-red;
+							}
+							&.blue {
+								color: $map-blue;
+							}
+							&.green {
+								color: $map-green;
+							}
+							&.yellow {
+								color: $map-yellow;
+							}
+							&.orange {
+								color: $map-orange;
+							}
+						}
+					}
+					#date {
+						margin-top: 0px;
 
-						width: 100%;
-						height: 100%;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-
-						z-index: 1;
+						span {
+							color: $light-grey;
+						}
 					}
 				}
 			}
 
-			#animal {
-				width: 130px;
-				min-width: 130px;
-				margin-left: 18px;
-				box-sizing: border-box;
+			#rating {
+				width: 100%;
+				margin-top: 15px;
 
-				display: flex;
-				flex-direction: column;
-
-				select {
-					appearance: none;
-
+				#title {
+					font-weight: 500;
+					font-size: 15px;
+					color: $grey;
+					letter-spacing: -0.35px;
+				}
+				#button-container {
 					width: 100%;
-					height: 50px;
-					margin-top: 10px;
+					height: 40px;
+					margin-top: 7px;
 
-					background-color: transparent;
 					border: 1px solid $dark-grey;
-					border-radius: 8px;
+					border-radius: 6px;
+					overflow: hidden;
 
 					display: flex;
-					justify-content: center;
-					align-items: center;
 
-					font-family: "Outfit", system-ui, Helvetica, sans-serif;
-					font-size: 16px;
-					font-weight: 400;
-					letter-spacing: -0.37px;
-					color: $light-grey;
-					text-align-last: center;
+					button {
+						width: 50%;
+						height: 100%;
+						box-sizing: border-box;
+						border-radius: 0px;
+
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						&:first-child {
+							border-right: 1px solid $dark-grey;
+						}
+
+						&:active {
+							background-color: $dark-grey;
+
+							img {
+								opacity: 0.3;
+							}
+						}
+
+						&.active {
+							&#yes {
+								background-color: $blue;
+								img {
+									opacity: 1;
+								}
+							}
+							&#no {
+								background-color: $dark-grey;
+								img {
+									opacity: 0.5;
+								}
+							}
+						}
+
+						img {
+							height: 13px;
+							opacity: 0.2;
+						}
+					}
 				}
 			}
 		}
 
 		hr {
-			position: absolute;
-			top: 14px;
-
 			width: 36px;
 			height: 5px;
 			border-radius: 10px;
-			background: transparent;
-
-			backdrop-filter: blur(50px) saturate(0) contrast(5) invert(1);
-			-webkit-backdrop-filter: blur(50px) saturate(0) contrast(5) invert(1);
+			background-color: $dark-grey;
+			margin-bottom: 10px;
 		}
 
 		h1 {

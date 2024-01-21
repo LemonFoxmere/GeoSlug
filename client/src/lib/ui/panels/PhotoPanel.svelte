@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import LoadingDots from "./../general/LoadingDots.svelte";
 	export interface FilterConfiguration {
 		pointFog: boolean;
 		slug: boolean;
@@ -10,13 +11,19 @@
 </script>
 
 <script lang="ts">
+	import type { PostData, species } from "$route/+page.server";
+
+	import { FIREBASE_CONFIG } from "$lib/@const/dynamic.env";
+	import { initializeApp } from "firebase/app";
+	import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 	import { createEventDispatcher, onMount } from "svelte";
 	const disp = createEventDispatcher();
 	const submitDisp = createEventDispatcher<{
-		submit: { animal: string; count: number; lng: number; lat: number };
+		submit: { post: PostData };
 	}>();
 
 	export let open: boolean;
+	export let imgFile: File;
 	export let imgUrl: string;
 
 	let panelParent: HTMLElement;
@@ -24,6 +31,8 @@
 	let currentDragPosition: [number, number] = [0, 0];
 	let dragging: boolean = false;
 	let dragTime: [number, number] = [0, 0];
+
+	let uploading: boolean;
 
 	const calcDistance = (x: number, y: number): number => {
 		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -109,6 +118,61 @@
 		};
 	};
 
+	// Initialize Firebase
+	const app = initializeApp(FIREBASE_CONFIG);
+
+	async function submitPhoto(animal: species, count: number, lng: number, lat: number) {
+		uploading = true;
+
+		// Create a root reference
+		const storage = getStorage(app);
+		const storageRef = ref(
+			storage,
+			`animalimages/${crypto.randomUUID()}.${imgFile.name.split(".").pop()}`
+		);
+
+		let url: string;
+
+		// Upload the file to the defined Firebase Storage reference
+		try {
+			const snapshot = await uploadBytes(storageRef, imgFile);
+			// After a successful upload, you can get the URL of the uploaded file
+			url = await getDownloadURL(snapshot.ref);
+		} catch (err) {
+			console.error("Upload failed", err);
+			uploading = false;
+			return;
+		}
+
+		// upload all data to firestore
+		const newPost: PostData = {
+			id: crypto.randomUUID(),
+			name: "Lemon Foxmere",
+			type: animal,
+			lat: lat,
+			lng: lng,
+			count: count,
+			image_url: url,
+			timestamp: Date.now() / 1000 // format in seconds
+		};
+		let res = await fetch("/api/store/post", {
+			method: "POST",
+			body: JSON.stringify({
+				payload: newPost
+			}),
+			headers: {
+				"content-type": "application/json"
+			}
+		});
+		if (!res.ok) {
+			alert("Failed to upload photo. Please try again later.");
+			uploading = false;
+			return;
+		}
+
+		return newPost;
+	}
+
 	const onSubmit = () => {
 		// get lng and lat from user's device
 		let lng = 0;
@@ -116,19 +180,30 @@
 
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
-				(position) => {
+				async (position) => {
 					lng = position.coords.longitude;
 					lat = position.coords.latitude;
+
+					const newPost = await submitPhoto(
+						dropdownElement.value as species,
+						currentCount,
+						lng,
+						lat
+					);
+
+					if (!newPost) {
+						alert("Failed to upload photo. Please try again later.");
+						return;
+					}
+
 					submitDisp("submit", {
-						animal: dropdownElement.value,
-						count: currentCount,
-						lng: lng,
-						lat: lat
+						post: newPost
 					});
+					uploading = false;
 
 					// animate the card flying out
 					panelParent.style.pointerEvents = "none";
-					panelParent.style.transform = "translateY(-800px) scale(0.1, 1.5)";
+					panelParent.style.transform = "translateY(-900px) scale(0.1, 2)";
 					panelParent.style.transition = "transform 400ms cubic-bezier(0.55, 0, 0.675, 0.19)";
 
 					setTimeout(() => {
@@ -152,6 +227,8 @@
 		} else {
 			alert("Your browser does not support geolocation. Cannot submit photo.");
 		}
+
+		URL.revokeObjectURL(imgUrl);
 	};
 
 	onMount(() => {
@@ -198,7 +275,13 @@
 		</section>
 	</section>
 
-	<button id="submit" on:click={onSubmit}>Submit Photo</button>
+	<button id="submit" on:click={onSubmit}>
+		{#if uploading}
+			<LoadingDots />
+		{:else}
+			Submit Photo
+		{/if}
+	</button>
 </main>
 
 <style lang="scss">
