@@ -2,12 +2,13 @@
 <svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Path</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Screen-/-Normal" transform="translate(-341, -603)" fill="#EEE" fill-rule="nonzero">
+    <g id="Page-1" stroke="none" stroke-width="1" stroke-linejoin="round" fill="none" fill-rule="evenodd">
+        <g id="Screen-/-Filter-open" transform="translate(-341, -603)" fill="#EEEEEE" fill-rule="nonzero"
+            stroke="#EEEEEE" stroke-width="1.5">
             <g id="Menu" transform="translate(323, 528.9)">
                 <g id="Reorient" transform="translate(0, 56)">
                     <path
-                        d="M36.3961029,20.4075277 C36.6081187,19.8926324 36.4869668,19.2998537 36.0932233,18.9061102 C35.6994798,18.5123667 35.1067011,18.3912148 34.5918058,18.6032306 L19.3612877,24.8338971 C18.7468747,25.0848545 18.4007266,25.7338822 18.5262053,26.38291 C18.651684,27.0319377 19.2228284,27.4992377 19.8848367,27.4992377 L27.5000958,27.4992377 L27.5000958,35.1144968 C27.5000958,35.7765051 27.9673958,36.3433227 28.6164235,36.4731282 C29.2654513,36.6029338 29.914479,36.2524588 30.1654364,35.6380458 L36.3961029,20.4075277 Z"
+                        d="M34.8773681,19.2967391 L29.4711206,35.354452 L28.2500958,26.7492377 L19.8848367,26.7492377 L34.8773681,19.2967391 Z"
                         id="Path"></path>
                 </g>
             </g>

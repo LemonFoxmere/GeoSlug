@@ -215,8 +215,10 @@
 						}, 0);
 					}, 500);
 				},
-				() => {
-					alert("Please enable geolocation service in your browser to submit a photo.");
+				(err) => {
+					alert(
+						`Please enable geolocation service in your browser to submit a photo. Error: ${err}`
+					);
 				},
 				{
 					enableHighAccuracy: true,
