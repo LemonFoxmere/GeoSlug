@@ -11,6 +11,7 @@
 
 	// Mapbox configuration
 	mapboxgl.accessToken = PUBLIC_DEV_MAPBOX_KEY;
+	let mainContainer: HTMLElement;
 	let map: mapboxgl.Map;
 	let mapElmnt: HTMLElement;
 	let marker: mapboxgl.Marker;
@@ -30,10 +31,6 @@
 	const lat = tweened(0, { duration: 1000, easing: quartOut });
 	const zoom = tweened(16, { duration: 1000, easing: quartOut });
 
-	onMount(() => {
-		initializeMap();
-	});
-
 	function initializeMap() {
 		map = new mapboxgl.Map({
 			container: "map",
@@ -50,6 +47,55 @@
 		map.on("mousedown", () => (mapDragging = true));
 		map.on("move", () => {
 			if (mapDragging) updateData();
+		});
+
+		map.on("style.load", () => {
+			// Insert the layer beneath any symbol layer.
+			const layers = map.getStyle().layers;
+			const labelLayerId = layers.find(
+				(layer) => layer.type === "symbol" && layer!.layout!["text-field"]
+			)!.id;
+
+			// The 'building' layer in the Mapbox Streets
+			// vector tileset contains building height data
+			// from OpenStreetMap.
+			map.addLayer(
+				{
+					id: "add-3d-buildings",
+					source: "composite",
+					"source-layer": "building",
+					filter: ["==", "extrude", "true"],
+					type: "fill-extrusion",
+					minzoom: 15,
+					paint: {
+						"fill-extrusion-color": "#101010",
+
+						// Use an 'interpolate' expression to
+						// add a smooth transition effect to
+						// the buildings as the user zooms in.
+						"fill-extrusion-height": [
+							"interpolate",
+							["linear"],
+							["zoom"],
+							15,
+							0,
+							15.05,
+							["get", "height"]
+						],
+						"fill-extrusion-base": [
+							"interpolate",
+							["linear"],
+							["zoom"],
+							15,
+							0,
+							15.05,
+							["get", "min_height"]
+						],
+						"fill-extrusion-opacity": 0.6
+					}
+				},
+				labelLayerId
+			);
 		});
 	}
 
@@ -127,21 +173,68 @@
 		mapElmnt.addEventListener("touchmove", closeFilterPanel);
 	}
 
-	setTimeout(() => {
-		photoPanelOpen = true;
-	}, 500);
+	// setTimeout(() => {
+	// 	photoPanelOpen = true;
+	// }, 500);
 
 	// photos panel
+	let photoUrl: string;
+	let file: File;
+
 	function startPictureUpload(evt: CustomEvent<{ file: File | null; url: string | null }>) {
 		photoPanelOpen = true;
-		const { file, url } = evt.detail;
 
-		console.log(url);
-		console.log(file);
+		if (evt.detail.file) file = evt.detail.file;
+		if (evt.detail.url) photoUrl = evt.detail.url;
 	}
 	function closePhotoPanel() {
+		URL.revokeObjectURL(photoUrl);
 		photoPanelOpen = false;
 	}
+
+	function addNewMarker(uid: string, lng: number, lat: number) {
+		const el = document.createElement("div");
+		el.id = uid;
+		el.style.opacity = "0";
+		el.classList.add("marker");
+		el.classList.add("blue");
+
+		new mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map);
+	}
+
+	function submitPhoto(
+		evt: CustomEvent<{ animal: string; count: number; lng: number; lat: number }>
+	) {
+		setTimeout(() => {
+			closePhotoPanel();
+		}, 200);
+
+		setTimeout(() => {
+			// zoom to position and add new marker
+			map.flyTo({
+				center: [evt.detail.lng, evt.detail.lat],
+				zoom: 20,
+				bearing: -20,
+				pitch: 60,
+				duration: 2000
+			});
+
+			setTimeout(() => {
+				addNewMarker(crypto.randomUUID(), evt.detail.lng, evt.detail.lat);
+			}, 1500);
+		}, 300);
+
+		let timestamp = Date.now();
+		let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+		URL.revokeObjectURL(photoUrl);
+	}
+
+	onMount(() => {
+		initializeMap();
+		// DEBUG:
+		addNewMarker(crypto.randomUUID(), mapOffsetLng, mapOffsetLat);
+	});
 </script>
 
 <svelte:head>
@@ -149,14 +242,15 @@
 	<script src="https://api.mapbox.com/mapbox-assembly/v0.23.2/assembly.js"></script>
 </svelte:head>
 
-<main>
+<main bind:this={mainContainer}>
 	<section id="map-container">
 		<div id="map-gradient" />
-		<div id="map" bind:this={mapElmnt} />
+		<div id="map" class={filterOption?.pointFog ?? true ? "" : "point"} bind:this={mapElmnt} />
 	</section>
 
 	<!-- Custom Marker Element (hidden, used only for styling) -->
-	<div id="custom-marker" class="marker red {filterOption?.pointFog ?? true ? '' : 'point'}" />
+	<!-- <div id="custom-marker" class="marker red {filterOption?.pointFog ?? true ? '' : 'point'}" /> -->
+	<!-- <div id="custom-marker2" class="marker blue {filterOption?.pointFog ?? true ? '' : 'point'}" /> -->
 
 	<ControlOverlay
 		bind:opened={controlPanelOpen}
@@ -165,7 +259,12 @@
 		on:picture={(e) => startPictureUpload(e)}
 	/>
 
-	<PhotoPanel bind:open={photoPanelOpen} on:close={closePhotoPanel} />
+	<PhotoPanel
+		bind:open={photoPanelOpen}
+		bind:imgUrl={photoUrl}
+		on:submit={submitPhoto}
+		on:close={closePhotoPanel}
+	/>
 
 	<FilterPanel
 		bind:open={filterPanelOpen}
@@ -193,33 +292,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-
-		.marker {
-			width: 50px;
-			height: 50px;
-
-			border-radius: 50%;
-			z-index: 1;
-
-			filter: blur(15px);
-
-			transition: 700ms $out-generic-expo;
-			transition-property: filter, background-color, outline;
-
-			outline: 5px solid transparent;
-			background-color: transparent;
-
-			&.red {
-				background-image: radial-gradient(circle at 50% 50%, $map-red 30%, transparent 100%);
-			}
-
-			&.point {
-				filter: blur(0px);
-				background-color: $map-red;
-				outline: 5px solid $black;
-				outline-offset: -8px;
-			}
-		}
 
 		#overlay {
 			position: absolute;
