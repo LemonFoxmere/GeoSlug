@@ -69,7 +69,7 @@
   },
   "src/routes/+page.svelte": {
     "css": [
-      "_app/immutable/assets/_page.D9YQMB2o.css"
+      "_app/immutable/assets/_page.DhhfxbEq.css"
     ],
     "file": "entries/pages/_page.svelte.js",
     "imports": [

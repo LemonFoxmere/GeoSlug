@@ -167,17 +167,20 @@ function tweened(value, defaults = {}) {
   };
 }
 const css$3 = {
-  code: '@media screen and (min-width: 621px){}@media screen and (max-width: 621px){}@media screen and (min-width: 1000px){}@media screen and (max-width: 1000px){}@keyframes s-45vs8dfFadfq-fadeIn{from{filter:opacity(0) blur(15px)}to{filter:opacity(1) blur(15px)}}button.s-45vs8dfFadfq.s-45vs8dfFadfq{font-family:"Outfit", system-ui, Helvetica, sans-serif;touch-action:manipulation;border:none;background-color:hsl(240, 4%, 9%);border-radius:10px;font-size:16px;font-weight:400;color:hsl(0, 0%, 100%);background:none;letter-spacing:-0.44px;padding:6px 16px;margin:0;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none;-moz-user-select:none;user-select:none;-webkit-user-select:none;-ms-user-select:none}input.s-45vs8dfFadfq.s-45vs8dfFadfq{height:36px;padding:0px 10px;box-sizing:border-box;transition:none;border:2px solid hsl(240, 4%, 9%);border-radius:8px;background:none;font-family:"Outfit", system-ui, Helvetica, sans-serif;font-size:14px}input.s-45vs8dfFadfq.s-45vs8dfFadfq::placeholder{color:hsl(0, 0%, 51%);transition:opacity 300ms ease-in}main.s-45vs8dfFadfq.s-45vs8dfFadfq{position:fixed;bottom:25px;right:10px;z-index:2;display:flex;justify-content:center;align-items:center;flex-direction:column;transition:transform 200ms cubic-bezier(0.3, -0.01, 0.4, 1.004)}main.s-45vs8dfFadfq button.s-45vs8dfFadfq{position:relative;width:55px;height:55px;background-color:hsl(240, 4%, 9%);display:flex;justify-content:center;align-items:center;border-radius:8px}main.s-45vs8dfFadfq button.s-45vs8dfFadfq:active{background-color:hsl(0, 0%, 18%)}main.s-45vs8dfFadfq button input.s-45vs8dfFadfq{position:absolute;top:0px;left:0px;width:100%;height:100%}main.s-45vs8dfFadfq button img.s-45vs8dfFadfq{width:18px;height:18px}main.s-45vs8dfFadfq button#camera.s-45vs8dfFadfq{border-radius:8px 8px 0px 0px;margin-bottom:1px}main.s-45vs8dfFadfq button#recenter.s-45vs8dfFadfq{border-radius:0px 0px 8px 8px;margin-bottom:15px}main.hidden.s-45vs8dfFadfq.s-45vs8dfFadfq{transform:translate(80px, 0px)}',
+  code: '@media screen and (min-width: 621px){}@media screen and (max-width: 621px){}@media screen and (min-width: 1000px){}@media screen and (max-width: 1000px){}@keyframes s-45vs8dfFadfq-fadeIn{from{filter:opacity(0) blur(15px)}to{filter:opacity(1) blur(15px)}}button.s-45vs8dfFadfq.s-45vs8dfFadfq{font-family:"Outfit", system-ui, Helvetica, sans-serif;touch-action:manipulation;border:none;background-color:hsl(240, 4%, 9%);border-radius:10px;font-size:16px;font-weight:400;color:hsl(0, 0%, 100%);background:none;letter-spacing:-0.44px;padding:6px 16px;margin:0;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none;-moz-user-select:none;user-select:none;-webkit-user-select:none;-ms-user-select:none}input.s-45vs8dfFadfq.s-45vs8dfFadfq{height:36px;padding:0px 10px;box-sizing:border-box;transition:none;border:2px solid hsl(240, 4%, 9%);border-radius:8px;background:none;font-family:"Outfit", system-ui, Helvetica, sans-serif;font-size:14px}input.s-45vs8dfFadfq.s-45vs8dfFadfq::placeholder{color:hsl(0, 0%, 51%);transition:opacity 300ms ease-in}main.s-45vs8dfFadfq.s-45vs8dfFadfq{position:fixed;bottom:25px;right:10px;z-index:2;display:flex;justify-content:center;align-items:center;flex-direction:column;transition:transform 200ms cubic-bezier(0.3, -0.01, 0.4, 1.004)}main.s-45vs8dfFadfq button.s-45vs8dfFadfq{position:relative;width:55px;height:55px;background-color:hsl(240, 4%, 9%);display:flex;justify-content:center;align-items:center;border-radius:8px}main.s-45vs8dfFadfq button.s-45vs8dfFadfq:active{background-color:hsl(0, 0%, 18%)}main.s-45vs8dfFadfq button input.s-45vs8dfFadfq{position:absolute;top:0px;left:0px;width:100%;height:100%}main.s-45vs8dfFadfq button img.s-45vs8dfFadfq,main.s-45vs8dfFadfq button svg.s-45vs8dfFadfq{width:18px;height:18px}main.s-45vs8dfFadfq button#camera.s-45vs8dfFadfq{border-radius:8px 8px 0px 0px;margin-bottom:1px}main.s-45vs8dfFadfq button#recenter.s-45vs8dfFadfq{border-radius:0px 0px 8px 8px;margin-bottom:15px}main.hidden.s-45vs8dfFadfq.s-45vs8dfFadfq{transform:translate(80px, 0px)}',
   map: null
 };
 const ControlOverlay = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   createEventDispatcher();
   createEventDispatcher();
   let { opened = true } = $$props;
+  let { centered = true } = $$props;
   if ($$props.opened === void 0 && $$bindings.opened && opened !== void 0)
     $$bindings.opened(opened);
+  if ($$props.centered === void 0 && $$bindings.centered && centered !== void 0)
+    $$bindings.centered(centered);
   $$result.css.add(css$3);
-  return `<main class="${escape(null_to_empty(opened ? "" : "hidden"), true) + " s-45vs8dfFadfq"}"><button id="camera" class="s-45vs8dfFadfq"><input type="file" accept="image/png, image/jpeg, image/heic" hidden class="s-45vs8dfFadfq"> <img src="/icons/camera.svg" class="s-45vs8dfFadfq"></button> <button id="recenter" class="s-45vs8dfFadfq"><img src="/icons/reorient.svg" class="s-45vs8dfFadfq"></button> <button id="filter" class="s-45vs8dfFadfq"><img src="/icons/layer.svg" class="s-45vs8dfFadfq"></button> </main>`;
+  return `<main class="${escape(null_to_empty(opened ? "" : "hidden"), true) + " s-45vs8dfFadfq"}"><button id="camera" class="s-45vs8dfFadfq"><input type="file" accept="image/png, image/jpeg, image/heic" hidden class="s-45vs8dfFadfq"> <img src="/icons/camera.svg" class="s-45vs8dfFadfq"></button> <button id="recenter" class="s-45vs8dfFadfq"><svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" class="s-45vs8dfFadfq"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Screen-/-Filter-open" transform="translate(-341, -603)" stroke-linejoin="round"${add_attribute("fill", centered ? "#EEEEEE" : "transparent", 0)} fill-rule="nonzero" stroke="#EEEEEE" stroke-width="1.5"><g id="Menu" transform="translate(323, 528.9)"><g id="Reorient" transform="translate(0, 56)"><path d="M34.8773681,19.2967391 L29.4711206,35.354452 L28.2500958,26.7492377 L19.8848367,26.7492377 L34.8773681,19.2967391 Z" id="Path"></path></g></g></g></g></svg></button> <button id="filter" class="s-45vs8dfFadfq"><img src="/icons/layer.svg" class="s-45vs8dfFadfq"></button> </main>`;
 });
 const css$2 = {
   code: '@media screen and (min-width: 621px){}@media screen and (max-width: 621px){}@media screen and (min-width: 1000px){}@media screen and (max-width: 1000px){}@keyframes s-s50Bl-jjbF1o-fadeIn{from{filter:opacity(0) blur(15px)}to{filter:opacity(1) blur(15px)}}button.s-s50Bl-jjbF1o.s-s50Bl-jjbF1o{font-family:"Outfit", system-ui, Helvetica, sans-serif;touch-action:manipulation;border:none;background-color:hsl(240, 4%, 9%);border-radius:10px;font-size:16px;font-weight:400;color:hsl(0, 0%, 100%);background:none;letter-spacing:-0.44px;padding:6px 16px;margin:0;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-drag:none;-moz-user-select:none;user-select:none;-webkit-user-select:none;-ms-user-select:none}main.s-s50Bl-jjbF1o.s-s50Bl-jjbF1o{width:calc(100% - 100px);height:477px;padding:14px 18px;box-sizing:border-box;border-radius:14px;position:fixed;bottom:20px;left:20px;overflow:hidden;display:flex;justify-content:flex-start;align-items:center;flex-direction:column;background-color:hsl(240, 4%, 9%);z-index:2;transition:transform 700ms cubic-bezier(0.3, 1, 0.22, 1.003)}main.s-s50Bl-jjbF1o section.s-s50Bl-jjbF1o{width:100%;margin-top:20px}main.s-s50Bl-jjbF1o section h2.s-s50Bl-jjbF1o{font-weight:500;font-size:18px;color:hsl(0, 0%, 51%);letter-spacing:-0.45px}main.s-s50Bl-jjbF1o section#animal #selection-parent.s-s50Bl-jjbF1o{position:relative;width:100%;margin-top:10px;display:flex;flex-direction:column;display:flex;border-radius:6px}main.s-s50Bl-jjbF1o section#animal #selection-parent button.s-s50Bl-jjbF1o{width:100%;height:50px;text-align:center;border-radius:8px}main.s-s50Bl-jjbF1o section#animal #selection-parent button.active.s-s50Bl-jjbF1o{background-color:hsl(226, 88%, 58%)}main.s-s50Bl-jjbF1o section#animal #selection-parent button.square-top.s-s50Bl-jjbF1o{border-top-right-radius:0px;border-top-left-radius:0px}main.s-s50Bl-jjbF1o section#animal #selection-parent button.square-bottom.s-s50Bl-jjbF1o{border-bottom-right-radius:0px;border-bottom-left-radius:0px}main.s-s50Bl-jjbF1o section#hot.s-s50Bl-jjbF1o{width:100%}main.s-s50Bl-jjbF1o section#hot #selection-parent.s-s50Bl-jjbF1o{position:relative;width:100%;height:50px;margin-top:10px;display:flex;border:1px solid hsl(0, 0%, 18%);border-radius:6px}main.s-s50Bl-jjbF1o section#hot #selection-parent #background.s-s50Bl-jjbF1o{position:absolute;width:50%;height:100%;background-color:hsl(226, 88%, 58%);border-radius:6px;z-index:-1;transition:transform 500ms cubic-bezier(0.3, 1, 0.22, 1.003)}main.s-s50Bl-jjbF1o section#hot #selection-parent #background.alt.s-s50Bl-jjbF1o{transform:translateX(100%)}main.s-s50Bl-jjbF1o section#hot #selection-parent button.s-s50Bl-jjbF1o{height:100%;width:50%;border-radius:0px;text-align:center;z-index:1}main.s-s50Bl-jjbF1o hr.s-s50Bl-jjbF1o{width:36px;height:5px;border-radius:10px;background-color:hsl(0, 0%, 18%);margin-bottom:10px}main.s-s50Bl-jjbF1o h1.s-s50Bl-jjbF1o{width:100%;text-align:left;font-weight:600;font-size:28px;color:hsl(0, 0%, 93%);letter-spacing:-0.7px}main.hidden.s-s50Bl-jjbF1o.s-s50Bl-jjbF1o{transform:translateY(552px)}',
@@ -250,21 +253,22 @@ const speciesName = {
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let controlPanelOpen;
   let $$unsubscribe_zoom;
-  let $$unsubscribe_lat;
-  let $$unsubscribe_lng;
+  let $lat, $$unsubscribe_lat;
+  let $lng, $$unsubscribe_lng;
   let { data } = $$props;
   mapboxgl.accessToken = PUBLIC_DEV_MAPBOX_KEY;
   let mainContainer;
   let mapElmnt;
   const lng = tweened(0, { duration: 1e3, easing: quartOut });
   validate_store(lng, "lng");
-  $$unsubscribe_lng = subscribe(lng, (value) => value);
+  $$unsubscribe_lng = subscribe(lng, (value) => $lng = value);
   const lat = tweened(0, { duration: 1e3, easing: quartOut });
   validate_store(lat, "lat");
-  $$unsubscribe_lat = subscribe(lat, (value) => value);
-  const zoom = tweened(13.5, { duration: 1e3, easing: quartOut });
+  $$unsubscribe_lat = subscribe(lat, (value) => $lat = value);
+  const zoom = tweened(13.6, { duration: 1e3, easing: quartOut });
   validate_store(zoom, "zoom");
   $$unsubscribe_zoom = subscribe(zoom, (value) => value);
+  let mapCentered;
   let filterPanelOpen = false;
   let photoPanelOpen = false;
   let postPanelOpen = false;
@@ -281,13 +285,21 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   do {
     $$settled = true;
     $$result.head = previous_head;
+    mapCentered = Math.round($lng * 1e4) / 1e4 === 0 && Math.round($lat * 1e4) / 1e4 === 0;
     controlPanelOpen = !(photoPanelOpen || postPanelOpen);
     $$rendered = `${$$result.head += `<!-- HEAD_svelte-1jae5dz_START --><link href="https://api.mapbox.com/mapbox-assembly/v0.23.2/assembly.min.css" rel="stylesheet"><script src="https://api.mapbox.com/mapbox-assembly/v0.23.2/assembly.js" data-svelte-h="svelte-tr3vq5"><\/script><!-- HEAD_svelte-1jae5dz_END -->`, ""} <main class="s-y_bCXRrkrYfP"${add_attribute("this", mainContainer, 0)}><section id="map-container" class="${"" + escape(filterOption?.pointFog ?? true ? "" : "point", true) + " " + escape(filterOption?.slug ?? true ? "" : "no-slug", true) + " " + escape(filterOption?.deer ?? true ? "" : "no-deer", true) + " " + escape(filterOption?.tkey ?? true ? "" : "no-tkey", true) + " " + escape(filterOption?.coyo ?? true ? "" : "no-coyo", true) + " " + escape(filterOption?.racc ?? true ? "" : "no-racc", true) + " s-y_bCXRrkrYfP"}"><div id="map-gradient" class="s-y_bCXRrkrYfP"></div> <div id="map" class="s-y_bCXRrkrYfP"${add_attribute("this", mapElmnt, 0)}></div></section> ${validate_component(ControlOverlay, "ControlOverlay").$$render(
       $$result,
-      { opened: controlPanelOpen },
+      {
+        opened: controlPanelOpen,
+        centered: mapCentered
+      },
       {
         opened: ($$value) => {
           controlPanelOpen = $$value;
+          $$settled = false;
+        },
+        centered: ($$value) => {
+          mapCentered = $$value;
           $$settled = false;
         }
       },
