@@ -173,7 +173,8 @@
 	let filterPanelOpen: boolean = false;
 	let photoPanelOpen: boolean = false;
 	let postPanelOpen: boolean = false;
-	$: controlPanelOpen = !(photoPanelOpen || postPanelOpen);
+	let isMobile: boolean = true;
+	$: controlPanelOpen = !(photoPanelOpen || postPanelOpen) || !isMobile;
 
 	// filter panel
 	let filterOption: FilterConfiguration;
@@ -231,7 +232,7 @@
 		el.classList.add(`diff${Math.max(0, diffDays)}`);
 		el.classList.add(speciesColor[type]);
 
-		el.ontouchend = () => {
+		el.ontouchend = el.onclick = () => {
 			// Open post panel and zoom into the marker
 			openPostPanel(uid);
 			setTimeout(() => {
@@ -292,6 +293,10 @@
 
 	onMount(() => {
 		initializeMap();
+
+		// set isMobile property
+		window.onresize = () => (isMobile = window.innerWidth < 621);
+		isMobile = window.innerWidth < 621;
 	});
 </script>
 
@@ -354,7 +359,7 @@
 
 	main {
 		width: 100%;
-		height: calc(100vh - $urlbar-height);
+		height: 100vh;
 		overflow: hidden;
 
 		display: flex;
@@ -415,14 +420,30 @@
 				pointer-events: none;
 
 				z-index: 1;
+
+				opacity: 0;
 			}
 
 			#map {
 				width: 100%;
-				height: calc(100vh - 40px);
+				height: calc(100vh + 40px);
 				z-index: 0;
 
 				transition: transform 700ms $out-generic-expo;
+			}
+		}
+
+		@media screen and (max-width: $mobile-width) {
+			height: calc(100vh - $urlbar-height);
+
+			#map-container {
+				#map {
+					height: calc(100vh - 40px);
+				}
+
+				#map-gradient {
+					opacity: 1;
+				}
 			}
 		}
 	}

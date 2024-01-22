@@ -77,8 +77,12 @@
 		? `transform: translateY(${Math.max(0, currentDragPosition[1] - initDragPosition[1])}px); transition: none;`
 		: ""}
 >
-	<hr />
-	<h1>Spotted Animals</h1>
+	<hr class="only-phone" />
+	<button id="close" class="exclude-phone" on:click={closeSelf}>
+		<img src="/icons/close.svg" alt="" />
+	</button>
+
+	<h1>Spotted Animal</h1>
 
 	{#if postData}
 		<section class="post">
@@ -86,16 +90,26 @@
 				<img src={postData.image_url} alt="animal" />
 
 				<section id="desc">
-					<h2 id="name">{postData.name}</h2>
+					<h2 id="name" class={speciesColor[postData.type]}>
+						{postData.count}
+						{speciesName[postData.type][Math.min(postData.count - 1, 1)]}
+					</h2>
+					<!-- <h2 id="name">{postData.name}</h2> -->
 					<p id="animal">
-						Spotted <span class={speciesColor[postData.type]}
-							>{postData.count} {speciesName[postData.type][Math.min(postData.count - 1, 1)]}</span
-						>
+						Spotted by <span>{postData.name}</span>
 					</p>
 					<p id="date">
-						<span
-							>{Math.ceil(Math.abs(Date.now() / 1000 - postData.timestamp) / (60 * 60 * 24))}</span
-						> days ago
+						{#if Math.round(Math.abs(Date.now() / 1000 - postData.timestamp) / (60 * 60 * 24)) === 0}
+							<span>Today</span>
+						{:else if Math.round(Math.abs(Date.now() / 1000 - postData.timestamp) / (60 * 60 * 24)) === 1}
+							<span>1</span> day ago
+						{:else}
+							<span
+								>{Math.round(
+									Math.abs(Date.now() / 1000 - postData.timestamp) / (60 * 60 * 24)
+								)}</span
+							> days ago
+						{/if}
 					</p>
 				</section>
 			</section>
@@ -119,18 +133,18 @@
 	@import "$static/stylesheets/guideline";
 
 	main {
-		$panel-height: 305px;
+		$panel-height: 295px;
 
-		width: calc(100% - 40px);
-		height: $panel-height;
-		padding: 14px 18px;
+		width: 500px;
+		height: fit-content;
+		padding: 14px 18px 20px 18px;
 		box-sizing: border-box;
 		border-radius: 14px;
 
 		position: fixed;
 		bottom: 20px;
-		left: 20px;
-		overflow: scroll;
+		right: 80px;
+		overflow: hidden;
 
 		display: flex;
 		justify-content: flex-start;
@@ -152,10 +166,10 @@
 				display: flex;
 
 				img {
-					min-width: 130px;
-					width: 130px;
-					min-height: 130px;
-					height: 130px;
+					min-width: 200px;
+					width: 200px;
+					min-height: 200px;
+					height: 200px;
 
 					border-radius: 8px;
 					object-fit: cover;
@@ -166,13 +180,29 @@
 					flex-direction: column;
 					justify-content: center;
 					align-items: flex-start;
-					margin-left: 17px;
+					margin-left: 25px;
 
 					h2 {
 						font-weight: 600;
-						font-size: 24px;
+						font-size: 32px;
 						color: $light-grey;
 						letter-spacing: -0.6px;
+
+						&.red {
+							color: $map-red;
+						}
+						&.blue {
+							color: $map-blue;
+						}
+						&.green {
+							color: $map-green;
+						}
+						&.yellow {
+							color: $map-yellow;
+						}
+						&.orange {
+							color: $map-orange;
+						}
 					}
 					#animal,
 					#date {
@@ -180,41 +210,23 @@
 						font-size: 16px;
 						color: $grey;
 						letter-spacing: -0.2px;
-					}
-					#animal {
-						margin-top: 7px;
-
-						span {
-							&.red {
-								color: $map-red;
-							}
-							&.blue {
-								color: $map-blue;
-							}
-							&.green {
-								color: $map-green;
-							}
-							&.yellow {
-								color: $map-yellow;
-							}
-							&.orange {
-								color: $map-orange;
-							}
-						}
-					}
-					#date {
-						margin-top: 0px;
 
 						span {
 							color: $light-grey;
 						}
+					}
+					#animal {
+						margin-top: 15px;
+					}
+					#date {
+						margin-top: 0px;
 					}
 				}
 			}
 
 			#rating {
 				width: 100%;
-				margin-top: 15px;
+				margin-top: 25px;
 
 				#title {
 					font-weight: 500;
@@ -247,7 +259,8 @@
 							border-right: 1px solid $dark-grey;
 						}
 
-						&:active {
+						&:active,
+						&:hover {
 							background-color: $dark-grey;
 
 							img {
@@ -284,7 +297,20 @@
 			height: 5px;
 			border-radius: 10px;
 			background-color: $dark-grey;
-			margin-bottom: 10px;
+			margin-bottom: 15px;
+		}
+
+		#close {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+
+			opacity: 0.5;
+			border-radius: 100px;
+
+			&:hover {
+				opacity: 1;
+			}
 		}
 
 		h1 {
@@ -297,7 +323,49 @@
 		}
 
 		&.hidden {
-			transform: translateY(calc($panel-height + 75px));
+			transform: translateY(calc(100% + 75px));
+		}
+
+		@media screen and (max-width: $mobile-width) {
+			width: calc(100% - 40px);
+			height: $panel-height;
+			left: 20px;
+
+			&.hidden {
+				transform: translateY(calc($panel-height + 75px));
+			}
+
+			.post {
+				margin-top: 20px;
+
+				#content {
+					img {
+						min-width: 110px;
+						width: 110px;
+						min-height: 110px;
+						height: 110px;
+					}
+
+					#desc {
+						margin-left: 17px;
+
+						h2 {
+							font-size: 24px;
+						}
+
+						#animal {
+							margin-top: 7px;
+						}
+						#date {
+							margin-top: 0px;
+						}
+					}
+				}
+
+				#rating {
+					margin-top: 20px;
+				}
+			}
 		}
 	}
 </style>

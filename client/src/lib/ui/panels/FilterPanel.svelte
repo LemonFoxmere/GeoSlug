@@ -74,7 +74,11 @@
 		? `transform: translateY(${Math.max(0, currentDragPosition[1] - initDragPosition[1])}px); transition: none;`
 		: ""}
 >
-	<hr />
+	<hr class="only-phone" />
+	<button id="close" class="exclude-phone" on:click={closeSelf}>
+		<img src="/icons/close.svg" alt="" />
+	</button>
+
 	<h1>Filter Settings</h1>
 
 	<section id="hot">
@@ -128,7 +132,7 @@
 	main {
 		$panel-height: 477px;
 
-		width: calc(100% - 100px);
+		width: 300px;
 		height: $panel-height;
 		padding: 14px 18px;
 		box-sizing: border-box;
@@ -136,7 +140,7 @@
 
 		position: fixed;
 		bottom: 20px;
-		left: 20px;
+		right: 80px;
 		overflow: hidden;
 
 		display: flex;
@@ -243,6 +247,19 @@
 			margin-bottom: 10px;
 		}
 
+		#close {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+
+			opacity: 0.5;
+			border-radius: 100px;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+
 		h1 {
 			width: 100%;
 			text-align: left;
@@ -254,6 +271,11 @@
 
 		&.hidden {
 			transform: translateY(calc($panel-height + 75px));
+		}
+
+		@media screen and (max-width: $mobile-width) {
+			width: calc(100% - 100px);
+			left: 20px;
 		}
 	}
 </style>

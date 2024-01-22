@@ -26,7 +26,7 @@
 </script>
 
 <main class={opened ? "" : "hidden"}>
-	<button id="camera" on:click={() => cameraInput?.click()}>
+	<button id="camera" on:click={() => cameraInput?.click()} class="only-phone">
 		<input
 			bind:this={cameraInput}
 			on:change={uploadPhoto}
@@ -116,13 +116,28 @@
 				margin-bottom: 1px;
 			}
 			&#recenter {
+				border-radius: 8px 8px 0px 0px;
+				margin-bottom: 1px;
+			}
+			&#filter {
 				border-radius: 0px 0px 8px 8px;
-				margin-bottom: 15px;
 			}
 		}
 
 		&.hidden {
 			transform: translate(80px, 0px);
+		}
+
+		@media screen and (max-width: $mobile-width) {
+			button {
+				&#recenter {
+					border-radius: 0px 0px 8px 8px;
+					margin-bottom: 15px;
+				}
+				&#filter {
+					border-radius: 8px;
+				}
+			}
 		}
 	}
 </style>
