@@ -46,7 +46,7 @@
 	// Tweened values for smooth transitions
 	const lng = tweened(0, { duration: 1000, easing: quartOut });
 	const lat = tweened(0, { duration: 1000, easing: quartOut });
-	const zoom = tweened(13.6, { duration: 1000, easing: quartOut });
+	const zoom = tweened(13.5, { duration: 1000, easing: quartOut });
 
 	let mapCentered: boolean;
 	$: mapCentered = Math.round($lng * 10000) / 10000 === 0 && Math.round($lat * 10000) / 10000 === 0;
@@ -56,7 +56,7 @@
 			container: "map",
 			style: "mapbox://styles/mapbox/dark-v11",
 			center: [$lng + mapOffsetLng, $lat + mapOffsetLat],
-			zoom: 13.6,
+			zoom: 13.5,
 			interactive: true
 		});
 
