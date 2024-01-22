@@ -190,6 +190,9 @@
 			return;
 		}
 		filterPanelOpen = true;
+		// close all other panels
+		closePostPanel();
+		closePhotoPanel();
 
 		// remove old event listeners
 		mapElmnt.removeEventListener("touchend", closeFilterPanel);
@@ -286,6 +289,10 @@
 	}
 	let currentPostData: PostData | undefined;
 	function openPostPanel(uid: string) {
+		// close all other panels
+		closeFilterPanel();
+		closePhotoPanel();
+
 		currentPostData = data.posts.find((post) => post.id === uid);
 		// if post exists, open the post panel
 		if (currentPostData) postPanelOpen = true;

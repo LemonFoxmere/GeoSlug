@@ -99,6 +99,8 @@ $tablet-width: 1000px;
     
         outline: 5px solid transparent;
         background-color: transparent;
+
+        cursor: pointer;
     
         &.diff0{
             // Apply the fade-in animation
