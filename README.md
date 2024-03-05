@@ -31,6 +31,6 @@ GeoSlug is a totes adorbs web app developed for UC Santa Cruz! It's a place wher
 This project is like totally licensed under the GPL-3.0 License.
 
 ## Special Shoutouts 🙏🌈
-Big hugs to Phoenix Foxmere and Brightonca for creating this! Inspired by UC Santa Cruz's natural beauty and our love for all creatures great and small! 🌲🦝
+Big hugs to Lemon Foxmere and Brightonca for creating this! Inspired by UC Santa Cruz's natural beauty and our love for all creatures great and small! 🌲🦝
 
 
