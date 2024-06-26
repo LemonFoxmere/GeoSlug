@@ -1,0 +1,282 @@
+// COLORS
+$black: hsl(240, 4%, 9%);
+$white: hsl(0, 0%, 100%);
+
+$dark-grey: hsl(0, 0%, 18%);
+$grey: hsl(0, 0%, 51%);
+$light-grey: hsl(0, 0%, 93%);
+
+$blue: hsl(226, 88%, 58%);
+
+$map-grey: hsl(0, 0%, 13%);
+$map-blue: hsl(238, 83%, 63%);
+$map-red: hsl(0, 89%, 61%);
+$map-orange: hsl(20, 90%, 59%);
+$map-green: hsl(101, 83%, 63%);
+$map-yellow: hsl(43, 83%, 63%);
+
+// TRANSITION CURVES
+$in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1.0075);
+$out-quart: cubic-bezier(0.165, 0.84, 0.44, 1.0075);
+$out-quint: cubic-bezier(0.23, 1, 0.32, 1.002);
+$out-expo: cubic-bezier(0.19, 1, 0.22, 1.003);
+$out-circ: cubic-bezier(0.075, 0.82, 0.165, 1.0015);
+$out-generic: cubic-bezier(0.3, -0.01, 0.4, 1.004);
+$out-generic-expo: cubic-bezier(0.3, 1, 0.22, 1.003);
+$in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+$in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+$in-out-expo: cubic-bezier(1, 0, 0, 1);
+$in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+// SIZING
+$urlbar-height: 85px;
+$mobile-navbar-height: 70px;
+$navbar-height: 60px;
+
+$mobile-width: 621px;
+$tablet-width: 1000px;
+
+// RESPONSIVE DESIGN
+.only-phone {
+    @media screen and (min-width: $mobile-width) {
+        display: none !important;
+    }
+}
+
+.exclude-phone {
+    @media screen and (max-width: $mobile-width) {
+        display: none !important;
+    }
+}
+
+.exclude-desktop {
+    @media screen and (min-width: $tablet-width) {
+        display: none !important;
+    }
+}
+
+.only-desktop {
+    @media screen and (max-width: $tablet-width) {
+        display: none !important;
+    }
+}
+
+// ELEMENT STYLES
+.glass-heavy {
+    // background-color: hsla(96, 12%, 92%, 80%);
+
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+}
+
+.glass-light {
+    @extend .glass-heavy;
+
+    // background-color: hsla(96, 12%, 92%, 40%);
+}
+
+#map-container{
+    .marker {
+        width: 30px;
+        height: 30px;
+    
+        border-radius: 50%;
+        z-index: 1;
+    
+        filter: blur(15px);
+    
+        transition: 700ms $out-generic-expo;
+        transition-property: filter, background-color, outline;
+    
+        outline: 5px solid transparent;
+        background-color: transparent;
+    
+        &.diff0{
+            // Apply the fade-in animation
+            animation: fadeIn 1500ms $out-generic;
+        }
+        &.diff1{
+            opacity: 1 !important;
+        }
+        &.diff2{
+            opacity: 0.9 !important;
+        }
+        &.diff3{
+            opacity: 0.8 !important;
+        }
+        &.diff4{
+            opacity: 0.6 !important;
+        }
+        &.diff5{
+            opacity: 0.45 !important;
+        }
+        &.diff6{
+            opacity: 0.3 !important;
+        }
+        &.diff7{
+            opacity: 0.2 !important;
+        }
+    
+        &.red {
+            background-color: $map-red;
+        }
+        &.blue {
+            background-color: $map-blue;
+        }
+        &.green {
+            background-color: $map-green;
+        }
+        &.yellow {
+            background-color: $map-yellow;
+        }
+        &.orange {
+            background-color: $map-orange;
+        }
+
+        &:active{
+            opacity: 0.4 !important;
+        }
+    }
+
+    &.no-slug{
+        .marker{
+            &.yellow {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-deer{
+        .marker{
+            &.red {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-tkey{
+        .marker{
+            &.blue {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-coyo{
+        .marker{
+            &.orange {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    &.no-racc{
+        .marker{
+            &.green {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+    }
+    
+    &.point{
+        .marker{
+            filter: blur(0px);
+            outline: 3px solid $black;
+            outline-offset: -6px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        filter: opacity(0) blur(15px);
+    }
+    to {
+        filter: opacity(1) blur(15px);
+    }
+}
+
+button {
+    font-family: "Outfit", system-ui, Helvetica, sans-serif;
+
+    touch-action: manipulation;
+
+    border: none;
+    background-color: $black;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: $white;
+    background: none;
+    letter-spacing: -0.44px;
+
+    padding: 6px 16px;
+    margin: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+input {
+    height: 36px;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    transition: none;
+
+    border: 2px solid $black;
+    border-radius: 8px;
+    background: none;
+
+    font-family: "Outfit", system-ui, Helvetica, sans-serif;
+    font-size: 14px;
+
+    &::placeholder {
+        color: $grey;
+        transition: opacity 300ms ease-in;
+    }
+
+    &.large {
+        height: 46px;
+        padding: 0px 14px;
+
+        border-radius: 10px;
+
+        font-size: 16px;
+    }
+
+    &.hide-placeholder {
+        &:active, &:focus {
+            &::placeholder {
+                opacity: 0;
+                transition: opacity 200ms ease-out;
+            }
+        }
+    }
+}
+
+a {
+    @extend .no-drag !optional;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+hr {
+    @extend .no-drag !optional;
+}

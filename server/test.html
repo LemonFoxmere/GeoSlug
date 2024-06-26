@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script>
+      function handleCredentialResponse(response) {
+        // console.log("Encoded JWT ID token: " + response.credential);
+
+        // Build Firebase credential with the Google ID token.
+        const idToken = response.credential;
+        // POST /?=&= HTTP/1.1
+        // Content-Type: application/json
+        // User-Agent: insomnia/8.6.0
+        // Host: localhost:3002
+        // Content-Length: 24
+
+        // {
+        //     "token" : "1234125"
+        // }
+        // const credential = GoogleAuthProvider.credential(idToken);
+
+        // // Sign in with credential from the Google user.
+        // signInWithCredential(auth, credential).catch((error) => {
+        //     // Handle Errors here.
+        //     const errorCode = error.code;
+        //     const errorMessage = error.message;
+        //     // The email of the user's account used.
+        //     const email = error.email;
+        //     // The credential that was used.
+        //     const credential = GoogleAuthProvider.credentialFromError(error);
+        //     // .../
+        // });
+        // console.log("i think it worked")
+      }
+      
+    //   window.onload = function () {
+    //     google.accounts.id.initialize({
+    //       client_id: "1081118557427-98euu6dl1e0oe6jlolp65k1a1gahdm28.apps.googleusercontent.com",
+    //       callback: handleCredentialResponse
+    //     });
+    //     google.accounts.id.renderButton(
+    //       document.getElementById("buttonDiv"),
+    //       { theme: "outline", size: "large" }  // customization attributes
+    //     );
+    //     google.accounts.id.prompt(); // also display the One Tap dialog
+    //   }
+    </script>
+    <div id="buttonDiv"></div>
+  </body>
+</html>

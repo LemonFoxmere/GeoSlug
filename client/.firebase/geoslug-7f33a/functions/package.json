@@ -1,0 +1,22 @@
+{
+  "name": "client",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@types/firebase": "^3.2.1",
+    "@types/mapbox-gl": "^2.7.19",
+    "firebase": "^10.7.2",
+    "mapbox-gl": "^3.1.0",
+    "sass": "^1.70.0",
+    "uuidv4": "^6.2.13",
+    "@sveltejs/kit": "^2.0.0",
+    "firebase-frameworks": "^0.10.4",
+    "firebase-functions": "^4.3.0",
+    "firebase-admin": "^11.0.1"
+  },
+  "main": "server.js",
+  "engines": {
+    "node": "20"
+  }
+}
